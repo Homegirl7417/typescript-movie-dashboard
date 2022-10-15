@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Movie, MovieTableColumn } from '../../interfaces';
+import more from '../../assets/more.png';
 
 const columns: readonly MovieTableColumn[] = [
   { field: 'title', headerName: 'Title', width: 350 },
@@ -42,6 +43,26 @@ const MovieTitle = styled.div`
     margin-left: 12px;
 `
 
+const ReleaseAndMoreContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const MoreButton = styled.div`
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  text-align: center;
+`;
+  
+const MoreButtonImage = styled.img`
+  width: 4px;
+  height: 16px;
+  object-fit: contain;
+`;
+
+
 export default function MovieTable({ rows }: { rows: Movie[] }): React.ReactElement {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -70,19 +91,23 @@ export default function MovieTable({ rows }: { rows: Movie[] }): React.ReactElem
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: Movie) => (
-              <TableRow style={{ cursor: 'pointer' }} hover role="checkbox" tabIndex={-1} key={row.id}>
+              <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                 <TableCell>
                   <MovieContainer>
-                    <MovieThumbnail
-                      alt={row.title}
-                      src={`https://image.tmdb.org/t/p/w500/${row.backdrop_path}`}
-                    />
+                    <MovieThumbnail alt={row.title} src={`https://image.tmdb.org/t/p/w500/${row.backdrop_path}`} />
                     <MovieTitle>{row.title}</MovieTitle>
                   </MovieContainer>
                 </TableCell>
                 <TableCell>{row.vote_average}</TableCell>
                 <TableCell>{row.vote_count}</TableCell>
-                <TableCell>{row.release_date}</TableCell>
+                <TableCell>
+                  <ReleaseAndMoreContainer>
+                    {row.release_date}
+                    <MoreButton>
+                      <MoreButtonImage src={more} />
+                    </MoreButton>
+                  </ReleaseAndMoreContainer>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
