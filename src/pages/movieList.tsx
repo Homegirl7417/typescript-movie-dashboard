@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { Movie } from '../interfaces';
 import MovieTemplate from '../components/template/MovieTemplate';
+import MovieTable from '../components/organisms/MovieTable';
 
 const API_KEY = process.env.REACT_APP_API_KEY as string;
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN as string;
@@ -44,14 +45,7 @@ export default function MovieList(): React.ReactElement {
       <div>
         <div>Description</div>
         <div>{description}</div>
-        <div>MovieList</div>
-        <div>
-          {movieList.map((movie: Movie) => (
-            <div key={movie.id}>
-              <div>Title: {movie.title}</div>
-            </div>
-          ))}
-        </div>
+        {movieList.length > 0 && <MovieTable rows={movieList} />}
       </div>
     </MovieTemplate>
   );
