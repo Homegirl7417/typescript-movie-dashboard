@@ -1,5 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -49,11 +51,14 @@ const ReleaseAndMoreContainer = styled.div`
   justify-content: space-between;
 `
 
-const MoreButton = styled.div`
+const MoreButton = styled.button`
   width: 24px;
   height: 24px;
   cursor: pointer;
   text-align: center;
+  padding: 0;
+  border: none;
+  background: none; 
 `;
   
 const MoreButtonImage = styled.img`
@@ -66,6 +71,17 @@ const MoreButtonImage = styled.img`
 export default function MovieTable({ rows }: { rows: Movie[] }): React.ReactElement {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+  
+  const handleOpenMore = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMore = (): void => {
+    setAnchorEl(null);
+  };
 
   const handleChangePage = (event: unknown, newPage: number): void => {
     setPage(newPage);
@@ -103,7 +119,7 @@ export default function MovieTable({ rows }: { rows: Movie[] }): React.ReactElem
                 <TableCell>
                   <ReleaseAndMoreContainer>
                     {row.release_date}
-                    <MoreButton>
+                    <MoreButton onClick={handleOpenMore}>
                       <MoreButtonImage src={more} />
                     </MoreButton>
                   </ReleaseAndMoreContainer>
@@ -122,6 +138,19 @@ export default function MovieTable({ rows }: { rows: Movie[] }): React.ReactElem
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleCloseMore}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <Typography sx={{ p: 2 }}>수정</Typography>
+        <Typography sx={{ p: 2 }}>삭제</Typography>
+      </Popover>
     </Paper>
   );
 }
