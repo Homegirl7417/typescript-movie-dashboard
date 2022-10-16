@@ -4,6 +4,7 @@ import Login from './pages/login';
 import MovieList from './pages/movieList';
 import Search from './pages/search';
 import UpdateMovie from './pages/updateMovie';
+import AddMovie from './pages/addMovie';
 
 function App(): JSX.Element {
   return (
@@ -14,6 +15,7 @@ function App(): JSX.Element {
         <Route path="/movie/list" element={<MovieList />} />
         <Route path="/search" element={<Search />} />
         <Route path="/movie/item/update" element={<UpdateMovie />} />
+        <Route path="/movie/item/add" element={<AddMovie />} />
       </Routes>
     </BrowserRouter>
   );

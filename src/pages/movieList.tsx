@@ -85,6 +85,10 @@ export default function MovieList(): React.ReactElement {
     navigate(`/movie/item/update?media_id=${media_id}&media_type=${media_type}`);
   };
 
+  const moveToAddMovie = (): void => {
+    navigate('/movie/item/add');
+  };
+
   return (
     <MovieTemplate title="Movie 목록 조회">
       <div>
@@ -93,7 +97,9 @@ export default function MovieList(): React.ReactElement {
         {movieList.length > 0 && (
           <MovieTable rows={movieList} moveToUpdateMovie={moveToUpdateMovie} deleteMovie={deleteMovie} />
         )}
-        <ModifyButton type="button">추가</ModifyButton>
+        <ModifyButton type="button" onClick={moveToAddMovie}>
+          추가
+        </ModifyButton>
       </div>
     </MovieTemplate>
   );
