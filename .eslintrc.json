@@ -18,6 +18,8 @@
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/promise-function-async": "off",
     // input 태그에 autofocus를 주기 위해 비활성화
-    "jsx-a11y/no-autofocus": "off"
+    "jsx-a11y/no-autofocus": "off",
+    // reducer 파라미터 위치 조정을 위해 비활성화
+    "@typescript-eslint/default-param-last": "off"
   }
 }
