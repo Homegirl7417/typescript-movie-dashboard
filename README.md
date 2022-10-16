@@ -31,7 +31,36 @@ $ npm install
 |---|---|
 | ```$ npm run start``` | 프로젝트 구동 |
 
+### 4. 테스트 계정
+- Email: tester@naver.com
+- Password: tester123456@
+
 <br/>
+
+## 📷 스크린샷
+
+<p align="center">
+  <table>
+    <tr>
+      <th>로그인 페이지</th>
+    </tr>
+    <tr>
+      <th>
+        <img width="500" height="300" alt="login" src="https://user-images.githubusercontent.com/52736242/196026705-6c44ebb3-a316-4708-b530-dcf8f604a5d7.png">
+      </th>
+    </tr>    
+  </table>
+    <table>
+    <tr>
+      <th>영화 목록 페이지</th>
+    </tr>
+    <tr>
+      <th>
+        <img width="500" height="300" alt="movielist" src="https://user-images.githubusercontent.com/52736242/196026729-3a5e9b52-0b68-44c1-8d8a-ad3c1c6abc9b.png">
+      </th>
+    </tr>    
+  </table>
+</p>
 
 ## 🌲 브랜치
 - [master](https://github.com/Homegirl7417/typescript-movie-dashboard)
