@@ -64,8 +64,8 @@ export default function Login(): React.ReactElement {
       <LoginWrapper>
         <h1>로그인</h1>
         <form>
-          <input name="email" placeholder="Email address" value={email} onChange={onChangeEmail} />
-          <input name="password" placeholder="Password" value={password} onChange={onChangePassword} />
+          <input type="email" name="email" placeholder="Email address" value={email} onChange={onChangeEmail} />
+          <input type="password" name="password" placeholder="Password" value={password} onChange={onChangePassword} />
           <button type="button" onClick={onClickLogin}>
             로그인
           </button>
