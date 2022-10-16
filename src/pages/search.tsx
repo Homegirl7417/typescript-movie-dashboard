@@ -4,6 +4,7 @@ import { Movie, TV, Person } from '../interfaces';
 import MovieTemplate from '../components/template/MovieTemplate';
 import MovieTable from '../components/organisms/MovieTable';
 import TvTable from '../components/organisms/TvTable';
+import PersonTable from '../components/organisms/PersonTable';
 
 const API_KEY = process.env.REACT_APP_API_KEY as string;
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN as string;
@@ -66,7 +67,7 @@ export default function Search(): React.ReactElement {
           const responsePersonList: Person[] = results.map((personData: any) => ({
             key: personData.id,
             id: personData.id,
-            name: personData.backdrop_path,
+            name: personData.name,
             known_for_department: personData.known_for_department,
             popularity: personData.popularity,
           }));
@@ -105,7 +106,7 @@ export default function Search(): React.ReactElement {
         </form>
         {movieList.length > 0 && <MovieTable rows={movieList} />}
         {tvList.length > 0 && <TvTable rows={tvList} />}
-        {/* {personList.length > 0 && <MovieTable rows={personList} />} */}
+        {personList.length > 0 && <PersonTable rows={personList} />}
       </div>
     </MovieTemplate>
   );
