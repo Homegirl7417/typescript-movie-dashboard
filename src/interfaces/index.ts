@@ -47,9 +47,9 @@ export interface PersonTableColumn {
 };
 
 export interface MovieTableProps {
-  rows: Movie[]
+  rows: Movie[];
   deleteMovie?: (title: string, media_type: string, media_id: number) => Promise<void>;
-  openCommentTextArea?: (media_type: string, media_id: number) => void;
+  moveToUpdateMovie?: (media_type: string, media_id: number) => void;
 }
 
 export interface TvTableProps {
@@ -63,4 +63,9 @@ export interface PersonTableProps {
 export interface HeaderProps {
   title: string;
   userName: string;
+}
+
+export interface UpdateMovieRouterProps {
+  media_type: string;
+  media_id: number;
 }

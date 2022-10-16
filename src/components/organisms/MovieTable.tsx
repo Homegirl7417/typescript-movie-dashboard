@@ -55,11 +55,7 @@ const ModifyButton = styled.button`
 `;
 
 
-export default function MovieTable({
-  rows,
-  deleteMovie,
-  openCommentTextArea,
-}: MovieTableProps): React.ReactElement {
+export default function MovieTable({ rows, deleteMovie, moveToUpdateMovie }: MovieTableProps): React.ReactElement {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -99,8 +95,8 @@ export default function MovieTable({
                 <TableCell>
                   <ReleaseAndMoreContainer>
                     {row.release_date}
-                    {openCommentTextArea !== undefined && (
-                      <ModifyButton onClick={() => openCommentTextArea(row.media_type, row.id)}>수정</ModifyButton>
+                    {moveToUpdateMovie !== undefined && (
+                      <ModifyButton onClick={() => moveToUpdateMovie(row.media_type, row.id)}>수정</ModifyButton>
                     )}
                     {deleteMovie !== undefined && (
                       <ModifyButton onClick={() => deleteMovie(row.title, row.media_type, row.id)}>삭제</ModifyButton>

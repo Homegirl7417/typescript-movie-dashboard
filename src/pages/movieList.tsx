@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { Movie } from '../interfaces';
 import MovieTemplate from '../components/template/MovieTemplate';
 import MovieTable from '../components/organisms/MovieTable';
@@ -9,28 +10,19 @@ const API_KEY = process.env.REACT_APP_API_KEY as string;
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN as string;
 const GET_MOVIELIST_API_URL = `https://api.themoviedb.org/4/list/1?page=1&api_key=${API_KEY}`;
 const DELETE_MOVIE_API_URL = 'https://api.themoviedb.org/4/list/1/items';
-const UPDATE_MOVIE_API_URL = 'https://api.themoviedb.org/4/list/1/items';
 
-const CommentContainer = styled.div<{ isCommentTextAreaHidden: boolean }>`
-  display: ${(props) => (props.isCommentTextAreaHidden ? 'none' : 'block')};
-  width: 100px;
-  height: 50px;
-  margin-bottom: 50px;
+const ModifyButton = styled.button`
+  width: 80px;
+  height: 24px;
+  cursor: pointer;
+  float: right;
+  margin-top: 10px;
 `;
-
-const CommentTitle = styled.div``;
-
-const CommentTextArea = styled.textarea``;
-
-const SaveButton = styled.button``;
 
 export default function MovieList(): React.ReactElement {
   const [movieList, setMovieList] = useState<Movie[]>([]);
   const [description, setDescription] = useState('');
-  const [comment, setComment] = useState('');
-  const [mideaType, setMideaType] = useState('');
-  const [mideaId, setMideaId] = useState(0);
-  const [isCommentTextAreaHidden, setIsCommentTextAreaHidden] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMovieList = async (): Promise<void> => {
@@ -89,66 +81,19 @@ export default function MovieList(): React.ReactElement {
     }
   };
 
-  const initializeComment = (): void => {
-    setComment('');
-    setMideaType('');
-    setMideaId(0);
+  const moveToUpdateMovie = (media_type: string, media_id: number): void => {
+    navigate(`/movie/item/update?media_id=${media_id}&media_type=${media_type}`);
   };
 
-  const openCommentTextArea = (media_type: string, media_id: number): void => {
-    // 새로운 코멘트 받고 저장할 media_type, media_id 얻기
-    initializeComment();
-    setIsCommentTextAreaHidden(false);
-    setMideaType(media_type);
-    setMideaId(media_id);
-  };
-
-  const updateMovie = async (): Promise<void> => {
-    const movieObject = {
-      items: [
-        {
-          media_type: mideaType,
-          media_id: mideaId,
-          comment,
-        },
-      ],
-    };
-    await axios
-      .put(UPDATE_MOVIE_API_URL, {
-        headers: {
-          Authorization: `Bearer ${ACCESS_TOKEN}`,
-        },
-        data: {
-          movieObject,
-        },
-      })
-      .then(() => {
-        alert('수정이 완료되었습니다.');
-        setIsCommentTextAreaHidden(true);
-        initializeComment();
-      })
-      .catch((err: Error): void => {
-        alert(err.message);
-        setIsCommentTextAreaHidden(true);
-        initializeComment();
-      });
-  };
-  const onChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setComment(e.target.value);
-  };
   return (
     <MovieTemplate title="Movie 목록 조회">
       <div>
         <div>Description</div>
         <div>{description}</div>
-        <CommentContainer isCommentTextAreaHidden={isCommentTextAreaHidden}>
-          <CommentTitle>코멘트 수정</CommentTitle>
-          <CommentTextArea value={comment} onChange={onChangeComment} placeholder="Enter your comment." />
-          <SaveButton onClick={() => updateMovie()}>저장</SaveButton>
-        </CommentContainer>
         {movieList.length > 0 && (
-          <MovieTable rows={movieList} openCommentTextArea={openCommentTextArea} deleteMovie={deleteMovie} />
+          <MovieTable rows={movieList} moveToUpdateMovie={moveToUpdateMovie} deleteMovie={deleteMovie} />
         )}
+        <ModifyButton type="button">추가</ModifyButton>
       </div>
     </MovieTemplate>
   );
