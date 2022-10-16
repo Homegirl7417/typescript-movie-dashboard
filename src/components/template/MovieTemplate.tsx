@@ -2,11 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import SideNavBar from '../organisms/SideNavBar';
 import Header from "../organisms/Header";
-
-interface MovieTemplateProps {
-  title: string,
-  children: JSX.Element
-};
+import { MovieTemplateProps } from '../../interfaces';
 
 const Container = styled.div`
   width: 100vw;

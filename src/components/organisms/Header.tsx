@@ -1,11 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import profile from '../../assets/profile.png';
-
-interface HeaderProps {
-    title: string,
-    userName: string
-}
+import { HeaderProps } from '../../interfaces';
 
 const HeaderContainer = styled.div`
   width: 1122px;
