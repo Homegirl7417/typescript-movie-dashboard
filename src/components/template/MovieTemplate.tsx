@@ -9,10 +9,13 @@ const Container = styled.div`
   height: 100vh;
 `
 const ContentContainer = styled.div`
-  width: calc(100vw - 255px);
   margin-left: 255px;
   padding: 30px;
 `;
+
+const ChildrenContainer = styled.div`
+  padding: 30px 0px;
+`
 
 export default function MovieTemplate({ title, children }: MovieTemplateProps): React.ReactElement {
   return (
@@ -20,7 +23,7 @@ export default function MovieTemplate({ title, children }: MovieTemplateProps): 
       <SideNavBar />
       <ContentContainer>
         <Header title={title} userName="아무개씨" />
-        <div>{children}</div>
+        <ChildrenContainer>{children}</ChildrenContainer>
       </ContentContainer>
     </Container>
   );

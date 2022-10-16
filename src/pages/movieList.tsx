@@ -137,7 +137,7 @@ export default function MovieList(): React.ReactElement {
     setComment(e.target.value);
   };
   return (
-    <MovieTemplate title="영화 목록">
+    <MovieTemplate title="Movie 목록 조회">
       <div>
         <div>Description</div>
         <div>{description}</div>
@@ -147,11 +147,7 @@ export default function MovieList(): React.ReactElement {
           <SaveButton onClick={() => updateMovie()}>저장</SaveButton>
         </CommentContainer>
         {movieList.length > 0 && (
-          <MovieTable
-            rows={movieList}
-            openCommentTextArea={openCommentTextArea}
-            deleteMovie={deleteMovie}
-          />
+          <MovieTable rows={movieList} openCommentTextArea={openCommentTextArea} deleteMovie={deleteMovie} />
         )}
       </div>
     </MovieTemplate>

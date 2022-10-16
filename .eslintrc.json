@@ -16,6 +16,8 @@
     "@typescript-eslint/no-floating-promises": "off",
     // onClick 함수 내에서 비동기 함수를 호출하기 위해 비활성화
     "@typescript-eslint/no-misused-promises": "off",
-    "@typescript-eslint/promise-function-async": "off"
+    "@typescript-eslint/promise-function-async": "off",
+    // input 태그에 autofocus를 주기 위해 비활성화
+    "jsx-a11y/no-autofocus": "off"
   }
 }

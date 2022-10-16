@@ -8,24 +8,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Movie, MovieTableColumn, MovieTableProps } from '../../interfaces';
+import { TV, TvTableColumn, TvTableProps } from '../../interfaces';
 
-const columns: readonly MovieTableColumn[] = [
-  { field: 'title', headerName: 'Title', width: 350 },
-  { field: 'voteAverage', headerName: 'vote_average', width: 100 },
-  { field: 'voteCount', headerName: 'vote_count', width: 100 },
-  {
-    field: 'releaseDate',
-    headerName: 'release_date',
-    width: 140,
-  }
+const columns: readonly TvTableColumn[] = [
+  { field: 'name', headerName: 'Name', width: 350 },
+  { field: 'first_air_date', headerName: 'first_air_date', width: 100 },
+  { field: 'popularity', headerName: 'Popularity', width: 100 },
 ];
 
 const MovieContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 const MovieThumbnail = styled.img`
   width: 100px;
@@ -34,32 +29,15 @@ const MovieThumbnail = styled.img`
 `;
 
 const MovieTitle = styled.div`
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.2px;
-    color: #252733;
-    margin-left: 12px;
-`
-
-const ReleaseAndMoreContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`
-
-const ModifyButton = styled.button`
-  width: 80px;
-  height: 24px;
-  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #252733;
+  margin-left: 12px;
 `;
 
-
-export default function MovieTable({
-  rows,
-  deleteMovie,
-  openCommentTextArea,
-}: MovieTableProps): React.ReactElement {
+export default function TvTable({ rows }: TvTableProps): React.ReactElement {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -86,27 +64,16 @@ export default function MovieTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: Movie) => (
+            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: TV) => (
               <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                 <TableCell>
                   <MovieContainer>
-                    <MovieThumbnail alt={row.title} src={`https://image.tmdb.org/t/p/w500/${row.backdrop_path}`} />
-                    <MovieTitle>{row.title}</MovieTitle>
+                    <MovieThumbnail alt={row.name} src={`https://image.tmdb.org/t/p/w500/${row.backdrop_path}`} />
+                    <MovieTitle>{row.name}</MovieTitle>
                   </MovieContainer>
                 </TableCell>
-                <TableCell>{row.vote_average}</TableCell>
-                <TableCell>{row.vote_count}</TableCell>
-                <TableCell>
-                  <ReleaseAndMoreContainer>
-                    {row.release_date}
-                    {openCommentTextArea !== undefined && (
-                      <ModifyButton onClick={() => openCommentTextArea(row.media_type, row.id)}>수정</ModifyButton>
-                    )}
-                    {deleteMovie !== undefined && (
-                      <ModifyButton onClick={() => deleteMovie(row.title, row.media_type, row.id)}>삭제</ModifyButton>
-                    )}
-                  </ReleaseAndMoreContainer>
-                </TableCell>
+                <TableCell>{row.first_air_date}</TableCell>
+                <TableCell>{row.popularity}</TableCell>
               </TableRow>
             ))}
           </TableBody>
