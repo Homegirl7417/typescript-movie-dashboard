@@ -29,29 +29,32 @@ export default function AddMovie(): React.ReactElement {
     } 
   };
   const addMovie = async (): Promise<void> => {
-    const movieObject = {
-      items: [
-        {
-          media_type: mediaType,
-          media_id: mediaId,
-        },
-      ],
-    };
-    await axios
-      .put(ADD_MOVIE_API_URL, {
-        headers: {
-          Authorization: `Bearer ${ACCESS_TOKEN}`,
-        },
-        data: {
-          movieObject,
-        },
-      })
-      .then(() => {
-        alert('신규 생성이 완료되었습니다.');
-      })
-      .catch((err: Error): void => {
-        alert(err.message);
-      });
+    if (String(mediaType).length === 0 || String(mediaId).length === 0) alert('모든 항목을 입력해주시기 바랍니다.');
+    else {
+      const movieObject = {
+        items: [
+          {
+            media_type: mediaType,
+            media_id: mediaId,
+          },
+        ],
+      };
+      await axios
+        .put(ADD_MOVIE_API_URL, {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+          data: {
+            movieObject,
+          },
+        })
+        .then(() => {
+          alert('신규 생성이 완료되었습니다.');
+        })
+        .catch((err: Error): void => {
+          alert(err.message);
+        });
+    }
   };
   return (
     <MovieTemplate title="수정">
