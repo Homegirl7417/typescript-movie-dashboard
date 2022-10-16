@@ -8,8 +8,7 @@ const HeaderContainer = styled.div`
   height: 50px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  background-color: #393939;
+  justify-content: space-between;
 `;
 
 const Title = styled.div`
@@ -19,6 +18,7 @@ const Title = styled.div`
   line-height: 30px;
   letter-spacing: 0.3px;
   color: #252733;
+  float: left;
 `;
 
 const UserProfile = styled.div`
@@ -42,12 +42,15 @@ const ProfileImage = styled.img`
   object-fit: contain;
 `;
 
-export default function Header({title, userName}: HeaderProps): React.ReactElement {
+export default function Header({ title, userName, userEmail }: HeaderProps): React.ReactElement {
   return (
     <HeaderContainer>
       <Title>{title}</Title>
       <UserProfile>
-        <UserName>{userName}</UserName>
+        <UserName>
+          {userName}
+          {userEmail}
+        </UserName>
         <ProfileImage src={profile} />
       </UserProfile>
     </HeaderContainer>

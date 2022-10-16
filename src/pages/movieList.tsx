@@ -2,7 +2,9 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Movie } from '../interfaces';
+import { StoreState } from '../store/modules';
 import MovieTemplate from '../components/template/MovieTemplate';
 import MovieTable from '../components/organisms/MovieTable';
 
@@ -23,6 +25,7 @@ export default function MovieList(): React.ReactElement {
   const [movieList, setMovieList] = useState<Movie[]>([]);
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
+  const userEmail = useSelector((state: StoreState) => state.userReducer.email);
 
   useEffect(() => {
     const getMovieList = async (): Promise<void> => {
@@ -90,7 +93,7 @@ export default function MovieList(): React.ReactElement {
   };
 
   return (
-    <MovieTemplate title="Movie 목록 조회">
+    <MovieTemplate title="Movie 목록 조회" userEmail={userEmail}>
       <div>
         <div>Description</div>
         <div>{description}</div>

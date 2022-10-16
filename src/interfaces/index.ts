@@ -25,6 +25,7 @@ export interface Movie {
 
 export interface MovieTemplateProps {
   title: string;
+  userEmail: string;
   children: JSX.Element;
 }
 
@@ -63,6 +64,7 @@ export interface PersonTableProps {
 export interface HeaderProps {
   title: string;
   userName: string;
+  userEmail: string;
 }
 
 export interface UpdateMovieRouterProps {

@@ -11,16 +11,21 @@ const NavContainer = styled.nav`
   background-color: black;
 `;
 
+const NavItem = styled.li`
+  height: 100px;
+  text-align: center;
+`
+
 export default function SideNavBar(): React.ReactElement {
   return (
     <NavContainer>
       <ul>
-        <li>
+        <NavItem>
           <NavLink to="/movie/list">movie 목록 조회</NavLink>
-        </li>
-        <li>
+        </NavItem>
+        <NavItem>
           <NavLink to="/search">검색</NavLink>
-        </li>
+        </NavItem>
       </ul>
     </NavContainer>
   );

@@ -1,6 +1,11 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from 'styled-components';
+import { actionCreators } from '../store/modules/user';
+
+const ACCOUNT_ID = process.env.REACT_APP_ACCOUNT_ID as string;
+const SESSION_ID = process.env.REACT_APP_SESSION_ID as string;
 
 const LoginContainer = styled.div`
   width: 100vw;
@@ -23,6 +28,7 @@ export default function Login(): React.ReactElement {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
   };
@@ -54,9 +60,11 @@ export default function Login(): React.ReactElement {
 
   const onClickLogin = (): void => {
     if (!validateEmail(email)) alert('이메일 형식이 올바르지 않습니다.');
-    else if (!validatePassword(password)) alert('비밀번호 형식이 올바르지 않습니다.')
+    else if (!validatePassword(password)) alert('비밀번호 형식이 올바르지 않습니다.');
     else {
+      dispatch(actionCreators.login(email, ACCOUNT_ID, SESSION_ID));
       navigate('/movie/list');
+
     }
   }
   return (

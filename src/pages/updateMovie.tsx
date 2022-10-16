@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { StoreState } from '../store/modules';
 import MovieTemplate from '../components/template/MovieTemplate';
 
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN as string;
@@ -23,6 +25,8 @@ export default function UpdateMovie(): React.ReactElement {
     const [comment, setComment] = useState('');
     const mideaType = searchParams.get('media_type');
     const mideaId = searchParams.get('media_id');
+    const userEmail = useSelector((state: StoreState) => state.userReducer.email);
+
     const onChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
       setComment(e.target.value);
     };
@@ -53,7 +57,7 @@ export default function UpdateMovie(): React.ReactElement {
         });
     };
   return (
-    <MovieTemplate title="수정">
+    <MovieTemplate title="수정" userEmail={userEmail}>
       <CommentContainer>
         <CommentTitle>코멘트 수정</CommentTitle>
         <CommentTextArea value={comment} onChange={onChangeComment} placeholder="Enter your comment." />

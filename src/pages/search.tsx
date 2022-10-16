@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { Movie, TV, Person } from '../interfaces';
 import MovieTemplate from '../components/template/MovieTemplate';
 import MovieTable from '../components/organisms/MovieTable';
 import TvTable from '../components/organisms/TvTable';
 import PersonTable from '../components/organisms/PersonTable';
+import { StoreState } from '../store/modules';
 
 const API_KEY = process.env.REACT_APP_API_KEY as string;
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN as string;
@@ -18,6 +20,8 @@ export default function Search(): React.ReactElement {
   const [movieList, setMovieList] = useState<Movie[]>([]);
   const [tvList, setTvList] = useState<TV[]>([]);
   const [personList, setPersonList] = useState<Person[]>([]);
+  const userEmail = useSelector((state: StoreState) => state.userReducer.email);
+
   const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setKeyword(e.target.value);
   };
@@ -84,7 +88,7 @@ export default function Search(): React.ReactElement {
     }
   };
   return (
-    <MovieTemplate title="검색">
+    <MovieTemplate title="검색" userEmail={userEmail}>
       <div>
         <form>
           <select name="type" id="search-type" onChange={onChangeKeywordType}>

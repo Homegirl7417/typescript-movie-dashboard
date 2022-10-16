@@ -17,12 +17,12 @@ const ChildrenContainer = styled.div`
   padding: 30px 0px;
 `
 
-export default function MovieTemplate({ title, children }: MovieTemplateProps): React.ReactElement {
+export default function MovieTemplate({ title, userEmail, children }: MovieTemplateProps): React.ReactElement {
   return (
     <Container>
       <SideNavBar />
       <ContentContainer>
-        <Header title={title} userName="아무개씨" />
+        <Header title={title} userName="아무개씨" userEmail={userEmail} />
         <ChildrenContainer>{children}</ChildrenContainer>
       </ContentContainer>
     </Container>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import MovieTemplate from '../components/template/MovieTemplate';
+import { StoreState } from '../store/modules';
 
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN as string;
 const ADD_MOVIE_API_URL = 'https://api.themoviedb.org/4/list/1/items';
@@ -19,6 +21,7 @@ const SaveButton = styled.button``;
 export default function AddMovie(): React.ReactElement {
   const [mediaType, setMediaType] = useState('movie');
   const [mediaId, setMediaId] = useState<number | string>('');
+  const userEmail = useSelector((state: StoreState) => state.userReducer.email);
 
   const onChangeAddType = (e: React.FormEvent<HTMLSelectElement>): void => {
     setMediaType(e.currentTarget.value);
@@ -57,7 +60,7 @@ export default function AddMovie(): React.ReactElement {
     }
   };
   return (
-    <MovieTemplate title="수정">
+    <MovieTemplate title="수정" userEmail={userEmail}>
       <CommentContainer>
         <Title>Movie Type</Title>
         <select name="type" id="add-type" onChange={onChangeAddType}>
@@ -66,7 +69,7 @@ export default function AddMovie(): React.ReactElement {
         </select>
         <Title>Movie Id (only number type)</Title>
         <input type="number" value={mediaId} onChange={onChangeMovieId} />
-        <br/>
+        <br />
         <SaveButton onClick={() => addMovie()}>저장</SaveButton>
       </CommentContainer>
     </MovieTemplate>
